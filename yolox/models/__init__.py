@@ -4,6 +4,7 @@
 
 from .build import *
 from .darknet import CSPDarknet, Darknet
+from .mobilenetv3 import MobileNetV3_Small
 from .losses import IOUloss
 from .yolo_fpn import YOLOFPN
 from .yolo_head_p3_p5_fpn_loss_balance import YOLOXHead
