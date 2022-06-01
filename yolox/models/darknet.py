@@ -3,6 +3,7 @@
 # Copyright (c) Megvii Inc. All rights reserved.
 
 from torch import nn
+import torch
 
 from .network_blocks import BaseConv, CSPLayer, DWConv, Focus, ResLayer, SPPBottleneck
 
@@ -178,3 +179,10 @@ class CSPDarknet(nn.Module):
         x = self.dark5(x)
         outputs["dark5"] = x
         return {k: v for k, v in outputs.items() if k in self.out_features}
+
+if __name__ == '__main__':
+    net = CSPDarknet(dep_mul=1.0, wid_mul=1.0)
+    net_state_dict = net.state_dict()
+    x = torch.randn(2,3,224,224)
+    y = net(x)
+    print(y.size())

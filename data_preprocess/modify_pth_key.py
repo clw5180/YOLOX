@@ -30,6 +30,7 @@ def convert(in_file, out_file):
 
     torch.save(out_state_dict, out_file)
 
+
     # sha = subprocess.check_output(['sha256sum', out_file]).decode()
     # if out_file.endswith('.pth'):
     #     out_file_name = out_file[:-4]

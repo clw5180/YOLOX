@@ -6,6 +6,7 @@ import torch
 import torch.nn as nn
 
 from .darknet import CSPDarknet
+from .mobilenetv3 import MobileNetV3_Small
 from .network_blocks import BaseConv, CSPLayer, DWConv
 
 
@@ -24,7 +25,9 @@ class YOLOPAFPN(nn.Module):
         act="silu",
     ):
         super().__init__()
-        self.backbone = CSPDarknet(depth, width, depthwise=depthwise, act=act)
+        #self.backbone = CSPDarknet(depth, width, depthwise=depthwise, act=act)
+        self.backbone = MobileNetV3_Small()
+
         self.in_features = in_features
         self.in_channels = in_channels
         Conv = DWConv if depthwise else BaseConv

@@ -117,11 +117,16 @@ class Exp(BaseExp):
                     m.momentum = 0.03
 
         if getattr(self, "model", None) is None:
-            in_channels = [256, 512, 1024]
+            # in_channels = [256, 512, 1024]
             # in_channels = [128, 256, 512, 1024]  # clw modify: for p2-p5
-            backbone = YOLOPAFPN(self.depth, self.width, in_channels=in_channels, act=self.act)
-            # backbone = YOLOPAFPN(self.depth, self.width, in_features=("dark2", "dark3", "dark4", "dark5"), in_channels=in_channels, act=self.act)
-            head = YOLOXHead(self.num_classes, self.width, in_channels=in_channels, act=self.act)
+            in_channels = [24, 48, 96]  # clw modify: for MobileNetV3_Small
+
+            # backbone = YOLOPAFPN(self.depth, self.width, in_channels=in_channels, act=self.act)
+            # backbone = YOLOPAFPN(self.depth, self.width, in_features=("dark2", "dark3", "dark4", "dark5"), in_channels=in_channels, act=self.act)  # clw modify
+            backbone = YOLOPAFPN(depth=1.0, width=1.0, in_features=("dark2", "dark3", "dark4"), in_channels=in_channels, act=self.act)  # clw modify: for MobileNetV3_Small
+
+            #head = YOLOXHead(self.num_classes, self.width, in_channels=in_channels, act=self.act)
+            head = YOLOXHead(self.num_classes, width=1.0, in_channels=in_channels, act=self.act)   # clw modify: for MobileNetV3_Small
             # head = YOLOXHead(self.num_classes, self.width, strides=[4, 8, 16, 32], in_channels=in_channels, act=self.act)
             self.model = YOLOX(backbone, head)
 
@@ -241,7 +246,8 @@ class Exp(BaseExp):
             for k, v in self.model.named_modules():
                 if hasattr(v, "bias") and isinstance(v.bias, nn.Parameter):
                     pg2.append(v.bias)  # biases
-                if isinstance(v, nn.BatchNorm2d) or "bn" in k:
+                #if isinstance(v, nn.BatchNorm2d) or "bn" in k:
+                if isinstance(v, nn.BatchNorm2d) or ("bn" in k and "bneck" not in k):   # clw modify: for MobileNetV3_Small
                     pg0.append(v.weight)  # no decay
                 elif hasattr(v, "weight") and isinstance(v.weight, nn.Parameter):
                     pg1.append(v.weight)  # apply decay

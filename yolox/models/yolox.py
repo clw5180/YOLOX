@@ -4,7 +4,8 @@
 
 import torch.nn as nn
 
-from .yolo_head_p3_p5_fpn_loss_balance import YOLOXHead
+from .yolo_head import YOLOXHead
+# from .yolo_head_p3_p5_fpn_loss_balance import YOLOXHead
 from .yolo_pafpn import YOLOPAFPN
 
 

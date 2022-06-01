@@ -6,7 +6,8 @@
 #python -m yolox.tools.train -expn exp6_640_p3_p5 -f exps/visdrone/yolox_s.py -d 1 -b 32 -c /home/caoliwei/base_utils/yolox_s.pth --fp16 -o
 #python -m yolox.tools.train -expn exp7_640_p3_p5_fpn_loss_balance -f exps/visdrone/yolox_s.py -d 1 -b 32 -c /home/caoliwei/base_utils/yolox_s.pth --fp16 -o
 #python -m yolox.tools.train -expn exp8_640_p3_p5_fpn_loss_balance_2_not_only_objloss -f exps/visdrone/yolox_s.py -d 1 -b 32 -c /home/caoliwei/base_utils/yolox_s.pth --fp16 -o
-python -m yolox.tools.train -expn exp9_640_focus_to_conv -f exps/visdrone/yolox_s.py -d 1 -b 32 -c /home/caoliwei/base_utils/yolox_s.pth --fp16 -o
+#python -m yolox.tools.train -expn exp9_640_focus_to_conv -f exps/visdrone/yolox_s.py -d 1 -b 32 -c /home/caoliwei/base_utils/yolox_s.pth --fp16 -o
+python -m yolox.tools.train -expn exp10_640_mobilenetv3 -f exps/visdrone/yolox_s.py -d 1 -b 32 -c /home/caoliwei/base_utils/mbv3_small_for_detection.pth --fp16 -o
 
 
 #########################################################################################
